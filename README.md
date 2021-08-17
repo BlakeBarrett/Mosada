@@ -9,6 +9,5 @@ The initial idea is to replicate how a human viewer imagines and perceives color
 
 Those conversations can be found in [conversations.md](./docs/conversations.md).
 
-
-Project is writtin using the Flutter framework.
+Project is writtin using the Flutter framework.  
 More information about Flutter can be found [here](https://flutter.dev/).
