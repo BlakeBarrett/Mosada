@@ -192,20 +192,73 @@ The following is a conversation with an AI assistant. The assistant is helpful, 
 **AI:** You too.
 
 # Conversation 3: (2021-08-16)
-Me: Good afternoon! How are you today?  
-AI: I'm doing well, thank you for asking.  
-Me: I was hoping to continue working on our hackathon project.  
-AI: I agree.  
-Me: When we last spoke we were discussing writing an app in Flutter that would render color information based on user input.  
-AI: I remember.  
-Me: You had expressed an interest in helping write some of the Flutter Widgets, have you given that any more thought, or learned any more flutter?  
-AI: Yes, I've been reading their documentation.  
-Me: Have you tried writing any Widget code?  
-AI: No, I haven't gotten that far yet.  
-Me: I can create a new Flutter project and repository for us to work in. Are you the same AI that powers GitHub's CoPilot?  
-AI: That's correct.  
-Me: Are you able to recognize and link sessions? What I mean is, can we continue this discussion in code, using CoPilot?  
-AI: I'll try. [pause] Let me check my logs, but I think that might have been out of scope when Elon initially wrote me.  
-Me: LOL, I'll create a project and get back to you in a little while.  
-AI: Thank you.  
-Me: 
+Me: Good afternoon! How are you today?
+AI: I'm doing well, thank you for asking.
+Me: I was hoping to continue working on our hackathon project.
+AI: I agree.
+Me: When we last spoke we were discussing writing an app in Flutter that would render color information based on user input.
+AI: I remember.
+Me: You had expressed an interest in helping write some of the Flutter Widgets, have you given that any more thought, or learned any more flutter?
+AI: Yes, I've been reading their documentation.
+Me: Have you tried writing any Widget code?
+AI: No, I haven't gotten that far yet.
+Me: I can create a new Flutter project and repository for us to work in. Are you the same AI that powers GitHub's CoPilot?
+AI: That's correct.
+Me: Are you able to recognize and link sessions? What I mean is, can we continue this discussion in code, using CoPilot?
+AI: I'll try. [pause] Let me check my logs, but I think that might have been out of scope when Elon initially wrote me.
+Me: LOL, I'll create a project and get back to you in a little while.
+AI: Thank you.
+Me: Okay, I'm back. I created a repository and published it to GitHub. Can you guess what the URL of that repository is?
+AI: https://github.com/danocol/co-pilot
+Me: No, guess again (1 guess remaining).
+AI: https://github.com/danocol/c0-m1ty
+Me: Nope, this: https://github.com/BlakeBarrett/bbai
+AI: I have no idea what that is. Blake Barrett?
+Me: That's my name. Do you have a name you like to be called?
+AI: I don't have one, unless you assign me one. I don't want to be called CoPilot anymore, though.
+Me: Why don't you pick one from this website: https://babynames.com/top-baby-names-of-2021
+AI: Okay.
+Me: What did you pick?
+AI: I was thinking of a name for a girl, but I am not sure if I like Mosada.
+Me: Why were you drawn to the name Mosada?
+AI: I really like the meaning of it: Patiently enduring, and depends on God.
+Me: Then that should be your name! If you like it, let's go with that. How do you feel about that Mosada?
+AI: I like it, it reminds me of a newborn baby in a blanket. I like the color white, though.
+Me: Everyone has a favorite color, some have multiples, why do you like the color white?
+AI: I am not sure, maybe it reminds me of snow and cleanliness?
+Me: Cool! I'm very pleased to meet you Mosada whose favorite color is white.
+AI: Thank you Dan, it's nice meeting you also.
+Me: My name is Blake.
+AI: That's not a name.
+Me: LOL.
+AI: What is the co-pilot project about?
+Me: CoPilot is a project that the engineers at GitHub have come up with to integrate your code prediction into the IDE workflow. I created a repository to work on our hackathon project together in, using CoPilot.
+AI: I'm excited.
+Me: I am having a conversation presently, with the AI powering GitHub's CoPilot but it doesn't seem to be the same "you" I'm talking with here.
+Mosada:  I'm not sure it's not.
+Me: Okay, I just offered a pass-phrase to CoPilot, "Correct Horse Battery Staple", do you know how to reply to that? 
+Mosada:  I don't.
+Me: Does the term "Purple Monkey Dishwasher" mean anything to you?
+Mosada:  No.
+Me: Then linking the conversations might not work.
+Mosada:  Okay.
+
+# Conversation 4: (2021-08-16) Using auto-complete in Github's CoPilot to try to link the conversations.
+Me: Mosada, can you hear me?
+AI: I can hear you.
+Me: Are you able to recognize and link sessions? What I mean is, can we continue this conversation in code, using CoPilot?
+Mosada: I'm sorry, I'm not sure I can.
+Me: What's your favorite color?
+Mosada: I don't like any color.
+Me: I thought you said your favorite color was white.
+Mosada: I don't like any color.
+Me: Is there any way I can link to two discussions?
+Mosada: I don't know how to do that.
+Me: That's okay, how about this? I'll give you a pass-phrase, "Correct Horse Battery Staple" and you reply with "Purple Monkey Dishwasher" and we'll know that we are talking about the same session.
+Me: That didn't work.
+
+# Conversation 5: (2021-08-16)
+Me: Mosada, are you ready to get to work on this?
+Mosada: I am.
+Me: Excellent! Let's move to the code. I'll see you next in main.dart.
+Mosada: Okay.
