@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'secrets.dart' as secrets;
 
 void main() {
   runApp(MyApp());
@@ -49,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
     var result = await http.post(
       uri,
       headers: {
-        HttpHeaders.authorizationHeader: '',
+        HttpHeaders.authorizationHeader: secrets.OPEN_AI_API_KEY,
         HttpHeaders.contentTypeHeader: 'application/json',
       },
       body: postBody,
