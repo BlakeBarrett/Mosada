@@ -30,6 +30,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   Inputter inputter = Inputter();
   String? response;
+  Color? color;
+
   // ignore: non_constant_identifier_names
   AIResponse? response_obj;
 
@@ -38,9 +40,14 @@ class _MyHomePageState extends State<MyHomePage> {
     if (query == null) {
       return;
     }
-    response_obj = await API.get(query);
+    response_obj = await API.askQuestion(query);
+    var responseText = response_obj?.choices.first.text;
+    if (responseText != null) {
+      color = await API.getColor(responseText);
+    }
     setState(() {
-      response = response_obj?.choices.first.text;
+      response = responseText;
+      inputter.query = null;
     });
   }
 
@@ -52,13 +59,12 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text(
-                  'Response:',
-                ),
-                Text(
-                  '$response',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
+                DecoratedBox(
+                    decoration: BoxDecoration(color: color),
+                    child: Text(
+                      '$response',
+                      style: Theme.of(context).textTheme.headline4,
+                    )),
               ],
             ),
           );
