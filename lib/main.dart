@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:convert';
+import 'package:bbai/AIResponse.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'secrets.dart' as secrets;
@@ -31,17 +32,20 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   Inputter inputter = Inputter();
+  String? response;
+  // ignore: non_constant_identifier_names
+  AIResponse? response_obj;
 
   void _execute() async {
     final String? query = inputter.query;
-    final String url = 'https://api.github.com/search/repositories?q=$query';
+    final String url = 'https://api.openai.com/v1/engines/davinci/completions';
     final Uri uri = Uri.parse(url);
     Map postData = {
-      "prompt": "Me: what do you think of \"$query\"\r Mosada: #",
+      // "prompt": "Me: $query\r Mosada: #",
+      "prompt": "The CSS code for a color like $query:\n\nbackground-color: #",
       "stop": [";"],
-      "engine": "davinci",
       "temperature": 0,
-      "max_tokens": 64,
+      "max_tokens": 69,
       "top_p": 1.0,
       "frequency_penalty": 0.0,
       "presence_penalty": 0.0,
@@ -50,19 +54,21 @@ class _MyHomePageState extends State<MyHomePage> {
     var result = await http.post(
       uri,
       headers: {
-        HttpHeaders.authorizationHeader: secrets.OPEN_AI_API_KEY,
+        HttpHeaders.authorizationHeader: "Bearer ${secrets.OPEN_AI_API_KEY}",
         HttpHeaders.contentTypeHeader: 'application/json',
       },
       body: postBody,
     );
+    print(result.body);
+    response_obj = AIResponse.fromJson(jsonDecode(result.body));
     setState(() {
-      inputter.response = result.body;
+      response = response_obj?.choices.first.text;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    Widget? body = (inputter.response == null)
+    Widget? body = (response == null)
         ? inputter
         : Center(
             child: Column(
@@ -72,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   'Query:',
                 ),
                 Text(
-                  '${inputter.response}',
+                  '$response',
                   style: Theme.of(context).textTheme.headline4,
                 ),
               ],
@@ -90,9 +96,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
+@immutable
 class Inputter extends StatefulWidget {
   String? query;
-  String? response;
 
   @override
   _InputterState createState() => _InputterState();
