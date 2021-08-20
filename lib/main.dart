@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+@immutable
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key}) : super(key: key);
 
@@ -28,21 +29,35 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Inputter inputter = Inputter();
   final List<ConversationViewModel> conversations = [];
 
-  void _execute() async {
-    final String? query = inputter.query;
-    if (query == null) {
-      return;
-    }
-    conversations
-        .add(new ConversationViewModel(text: query, color: Colors.transparent));
-    conversations.add(await API.continueConversation(query));
+  void _execute(final String query) async {
+    conversations.add(new ConversationViewModel(
+        text: "Me: $query", color: Colors.transparent));
+    conversations.addAll(await API.continueConversation(query));
+    setState(() {});
+  }
 
-    setState(() {
-      inputter = Inputter();
-    });
+  Widget getInputter() {
+    final TextEditingController controller = TextEditingController();
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Center(
+        child: TextField(
+          autofocus: true,
+          autocorrect: false,
+          controller: controller,
+          decoration: InputDecoration(
+            labelText: '',
+          ),
+          selectionControls: MaterialTextSelectionControls(),
+          onSubmitted: (value) {
+            _execute(value);
+            controller.clear();
+          },
+        ),
+      ),
+    );
   }
 
   @override
@@ -56,48 +71,8 @@ class _MyHomePageState extends State<MyHomePage> {
             Expanded(
               child: ConversationListWidget(values: conversations),
             ),
-            inputter
+            getInputter(),
           ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _execute,
-        tooltip: 'Go!',
-        child: Icon(Icons.add_task),
-      ),
-    );
-  }
-}
-
-@immutable
-class Inputter extends StatefulWidget {
-  String? query;
-
-  @override
-  _InputterState createState() => _InputterState();
-}
-
-class _InputterState extends State<Inputter> {
-  final String prompt = 'Enter something: ';
-
-  void onInputChanged(value) {
-    setState(() {
-      widget.query = value;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Center(
-        child: TextField(
-          autocorrect: false,
-          selectionControls: MaterialTextSelectionControls(),
-          decoration: InputDecoration(
-            labelText: '$prompt',
-          ),
-          onChanged: onInputChanged,
         ),
       ),
     );

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
-import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 import 'package:bbai/AIResponse.dart';
 import 'package:bbai/conversation_list.dart';
@@ -15,27 +15,28 @@ void reset() {
   _conversation = [];
 }
 
-Future<ConversationViewModel> continueConversation(
+Future<List<ConversationViewModel>> continueConversation(
     final String question) async {
   final answer = await askQuestion(question);
-  final text = getTextForResponse(answer);
-  final color = await getColor(text);
-  return new ConversationViewModel(text: text, color: color);
+  final textResponses = getTextForResponse(answer);
+  final List<ConversationViewModel> responses = [];
+  for (final element in textResponses) {
+    final color = await getColor(element);
+    responses.add(new ConversationViewModel(text: element, color: color));
+  }
+  return responses;
 }
 
-String getTextForResponse(final AIResponse? response) {
-  return response?.choices.first.text.split("\n").first ?? '';
+List<String> getTextForResponse(final AIResponse? response) {
+  return 'Mosada: ${response?.choices.first.text}'
+      .split("\n")
+      .where((value) => value.isNotEmpty)
+      .toList();
 }
 
 Color getColorForResponse(final AIResponse response) {
-  final colorString = "0xFF${response.choices.first.text}";
-  try {
-    final colorInt = int.parse(colorString);
-    return Color(colorInt);
-  } catch (e) {
-    print(e);
-  }
-  return Colors.transparent;
+  final colorString = '#${response.choices.first.text}';
+  return HexColor(colorString);
 }
 
 Future<Color> getColor(final String query) async {
@@ -46,9 +47,8 @@ Future<Color> getColor(final String query) async {
 }
 
 Future<AIResponse> askQuestion(final String query) async {
-  // final prompt = "Me: $query\n\nMosada: #;";
   final introduction =
-      "The following is a conversation with your new AI friend Mosada. Mosada is friendly, empathetic, creative, inquisitive.\n\n";
+      "The following is a conversation with your new AI friend Mosada. Mosada is friendly, empathetic, creative, artistic, and inquisitive.\n\n";
   final prompt = "Me: $query";
   _conversation.add(prompt);
   final fullConversation =
@@ -65,7 +65,7 @@ Future<AIResponse> _execute(final String query) async {
     "prompt": query,
     "stop": [";"],
     "temperature": 0,
-    "max_tokens": 100,
+    "max_tokens": 69,
     "top_p": 1.0,
     "frequency_penalty": 0.0,
     "presence_penalty": 0.0,
