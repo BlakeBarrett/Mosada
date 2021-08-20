@@ -24,7 +24,7 @@ Future<ConversationViewModel> continueConversation(
 }
 
 String getTextForResponse(final AIResponse? response) {
-  return response?.choices.first.text ?? '';
+  return response?.choices.first.text.split("\n").first ?? '';
 }
 
 Color getColorForResponse(final AIResponse response) {
@@ -65,7 +65,7 @@ Future<AIResponse> _execute(final String query) async {
     "prompt": query,
     "stop": [";"],
     "temperature": 0,
-    "max_tokens": 69,
+    "max_tokens": 100,
     "top_p": 1.0,
     "frequency_penalty": 0.0,
     "presence_penalty": 0.0,

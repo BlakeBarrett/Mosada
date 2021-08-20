@@ -28,7 +28,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final Inputter inputter = Inputter();
+  Inputter inputter = Inputter();
   final List<ConversationViewModel> conversations = [];
 
   void _execute() async {
@@ -41,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
     conversations.add(await API.continueConversation(query));
 
     setState(() {
-      inputter.query = null;
+      inputter = Inputter();
     });
   }
 
