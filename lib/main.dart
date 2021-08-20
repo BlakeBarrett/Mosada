@@ -1,4 +1,4 @@
-import 'package:bbai/AIResponse.dart';
+import 'package:bbai/conversation_list.dart';
 import 'package:flutter/material.dart';
 import 'AIRequests.dart' as API;
 
@@ -28,49 +28,38 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Inputter inputter = Inputter();
-  String? response;
-  Color? color;
-
-  // ignore: non_constant_identifier_names
-  AIResponse? response_obj;
+  final Inputter inputter = Inputter();
+  final List<ConversationViewModel> conversations = [];
 
   void _execute() async {
     final String? query = inputter.query;
     if (query == null) {
       return;
     }
-    response_obj = await API.askQuestion(query);
-    var responseText = response_obj?.choices.first.text;
-    if (responseText != null) {
-      color = await API.getColor(responseText);
-    }
+    conversations
+        .add(new ConversationViewModel(text: query, color: Colors.transparent));
+    conversations.add(await API.continueConversation(query));
+
     setState(() {
-      response = responseText;
       inputter.query = null;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    Widget? body = (response == null)
-        ? inputter
-        : Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                DecoratedBox(
-                    decoration: BoxDecoration(color: color),
-                    child: Text(
-                      '$response',
-                      style: Theme.of(context).textTheme.headline4,
-                    )),
-              ],
-            ),
-          );
-
     return Scaffold(
-      body: body,
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Flex(
+          direction: Axis.vertical,
+          children: [
+            Expanded(
+              child: ConversationListWidget(values: conversations),
+            ),
+            inputter
+          ],
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: _execute,
         tooltip: 'Go!',
@@ -80,6 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
+@immutable
 class Inputter extends StatefulWidget {
   String? query;
 
@@ -98,13 +88,17 @@ class _InputterState extends State<Inputter> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: TextField(
-        autocorrect: false,
-        decoration: InputDecoration(
-          labelText: '$prompt',
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Center(
+        child: TextField(
+          autocorrect: false,
+          selectionControls: MaterialTextSelectionControls(),
+          decoration: InputDecoration(
+            labelText: '$prompt',
+          ),
+          onChanged: onInputChanged,
         ),
-        onChanged: onInputChanged,
       ),
     );
   }

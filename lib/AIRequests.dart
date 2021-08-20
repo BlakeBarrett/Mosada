@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
+import 'package:flutter/material.dart';
 
 import 'package:bbai/AIResponse.dart';
+import 'package:bbai/conversation_list.dart';
 import 'package:http/http.dart' as http;
 
 import 'secrets.dart' as secrets;
@@ -13,14 +15,19 @@ void reset() {
   _conversation = [];
 }
 
+Future<ConversationViewModel> continueConversation(
+    final String question) async {
+  final answer = await askQuestion(question);
+  final text = getTextForResponse(answer);
+  final color = await getColor(text);
+  return new ConversationViewModel(text: text, color: color);
+}
+
 String getTextForResponse(final AIResponse? response) {
   return response?.choices.first.text ?? '';
 }
 
-Future<Color> getColor(final String query) async {
-  final prompt =
-      "The CSS code for a color like \"$query\":\n\nbackground-color: #";
-  final response = await _execute(prompt);
+Color getColorForResponse(final AIResponse response) {
   final colorString = "0xFF${response.choices.first.text}";
   try {
     final colorInt = int.parse(colorString);
@@ -28,7 +35,14 @@ Future<Color> getColor(final String query) async {
   } catch (e) {
     print(e);
   }
-  return Color.fromARGB(00, 0xFF, 0xFF, 0xFF);
+  return Colors.transparent;
+}
+
+Future<Color> getColor(final String query) async {
+  final prompt =
+      "The CSS code for a color like \"$query\":\n\nbackground-color: #";
+  final response = await _execute(prompt);
+  return getColorForResponse(response);
 }
 
 Future<AIResponse> askQuestion(final String query) async {

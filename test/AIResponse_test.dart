@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:bbai/AIRequests.dart';
 import 'package:test/test.dart';
 import 'package:bbai/AIResponse.dart';
+import 'package:flutter/material.dart';
 
 void main() {
   final jsonResponses = [
@@ -9,6 +11,10 @@ void main() {
         '{"id": "cmpl-3YOrBNtzvqNRSNbKhWBTPOK3YUsSP", "object": "text_completion", "created": 1629327713, "model": "davinci:2020-05-03", "choices": [{"text": "F0F0F0", "index": 0, "logprobs": null, "finish_reason": "stop"}]}'),
     jsonDecode(
         '{"id": "cmpl-3YPrAHaqZGdfFKBUPWXjxG0OiG6Xh", "object": "text_completion", "created": 1629331556, "model": "davinci:2020-05-03", "choices": [{"text": "FAFAFA", "index": 0, "logprobs": null, "finish_reason": "stop"}]}'),
+    jsonDecode(
+        '{"id": "cmpl-3YnzqsTMlO8cUMer4WJrDqztFvjtv", "object": "text_completion", "created": 1629424350, "model": "davinci:2020-05-03", "choices": [{"text": "f00", "index": 0, "logprobs": null, "finish_reason": "stop"}]}'),
+    jsonDecode(
+        '{"id": "cmpl-3Yo0tfpcU5Ob1CEMrUrOVozNSNEpi", "object": "text_completion", "created": 1629424415, "model": "davinci:2020-05-03", "choices": [{"text": "f0f0f0", "index": 0, "logprobs": null, "finish_reason": "stop"}]}'),
   ];
 
   group('Initialization from JSON tests', () {
@@ -40,6 +46,15 @@ void main() {
         } catch (e) {
           fail(e.toString());
         }
+      });
+    });
+
+    test('Colors can be parsed from responses', () {
+      jsonResponses.forEach((element) {
+        final response = AIResponse.fromJson(element);
+        final value = getColorForResponse(response);
+        expect(value, isNotNull);
+        expect(value, isNot(Colors.transparent));
       });
     });
   });
