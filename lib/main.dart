@@ -1,5 +1,6 @@
 import 'package:bbai/conversation_list.dart';
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'AIRequests.dart' as API;
 
 void main() {
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'BBAI',
+      title: 'Mosada ಠ_ಠ',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -41,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget getInputter() {
     final TextEditingController controller = TextEditingController();
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(16.0),
       child: Center(
         child: TextField(
           autofocus: true,
@@ -51,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
             labelText: '',
           ),
           selectionControls: MaterialTextSelectionControls(),
-          onSubmitted: (value) {
+          onSubmitted: (final value) {
             _execute(value);
             controller.clear();
           },
@@ -63,17 +64,18 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Flex(
-          direction: Axis.vertical,
-          children: [
-            Expanded(
-              child: ConversationListWidget(values: conversations),
-            ),
-            getInputter(),
-          ],
-        ),
+      body: Flex(
+        direction: Axis.vertical,
+        children: [
+          Expanded(
+              child: DecoratedBox(
+                  decoration: BoxDecoration(color: HexColor('#f0f0f0')),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ConversationListWidget(values: conversations),
+                  ))),
+          getInputter(),
+        ],
       ),
     );
   }

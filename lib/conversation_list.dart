@@ -18,6 +18,7 @@ class ConversationListWidget extends StatefulWidget {
 class _ConversationListWidgetState extends State<ConversationListWidget> {
   List<ConversationViewModel> conversations = [];
   _ConversationListWidgetState({required this.conversations});
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -27,7 +28,7 @@ class _ConversationListWidgetState extends State<ConversationListWidget> {
         slivers: [
           SliverList(
             delegate: new SliverChildBuilderDelegate(
-              (BuildContext context, int index) {
+              (final BuildContext context, final int index) {
                 return DecoratedBox(
                     decoration:
                         BoxDecoration(color: conversations[index].color),
