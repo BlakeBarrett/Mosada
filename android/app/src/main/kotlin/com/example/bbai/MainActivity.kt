@@ -1,4 +1,4 @@
-package com.example.bbai
+package com.blakebarrett.bbai
 
 import io.flutter.embedding.android.FlutterActivity
 

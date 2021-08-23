@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.bbai">
+    package="com.blakebarrett.bbai">
   <!-- Required to fetch data from the internet. -->
   <uses-permission android:name="android.permission.INTERNET" />
 
