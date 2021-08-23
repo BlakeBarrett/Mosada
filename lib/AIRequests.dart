@@ -22,13 +22,16 @@ Future<List<ConversationViewModel>> continueConversation(
   final List<ConversationViewModel> responses = [];
   for (final element in textResponses) {
     final color = await getColor(element);
-    responses.add(new ConversationViewModel(text: element, color: color));
+    responses.add(new ConversationViewModel(
+        text: element, color: color, speaker: Speaker.Them));
   }
   return responses;
 }
 
 List<String> getTextForResponse(final AIResponse? response) {
   return 'Mosada: ${response?.choices.first.text}'
+      .split('[Mosada: ')
+      .join('')
       .split("\n")
       .where((value) => value.isNotEmpty)
       .toList();

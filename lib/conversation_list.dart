@@ -1,23 +1,27 @@
 import 'package:flutter/material.dart';
 
+enum Speaker { Me, Them }
+
 class ConversationViewModel {
   late final String text;
   late final Color color;
-  ConversationViewModel({required this.text, required this.color});
+  late final Speaker speaker;
+  ConversationViewModel(
+      {required this.text, required this.color, required this.speaker});
 }
 
 @immutable
-class ConversationListWidget extends StatefulWidget {
+class ChatWidget extends StatefulWidget {
   final List<ConversationViewModel> values;
-  ConversationListWidget({required this.values});
+  ChatWidget({required this.values});
   @override
-  _ConversationListWidgetState createState() =>
-      _ConversationListWidgetState(conversations: this.values);
+  _ChatWidgetState createState() =>
+      _ChatWidgetState(conversations: this.values);
 }
 
-class _ConversationListWidgetState extends State<ConversationListWidget> {
+class _ChatWidgetState extends State<ChatWidget> {
   List<ConversationViewModel> conversations = [];
-  _ConversationListWidgetState({required this.conversations});
+  _ChatWidgetState({required this.conversations});
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +33,8 @@ class _ConversationListWidgetState extends State<ConversationListWidget> {
           SliverList(
             delegate: new SliverChildBuilderDelegate(
               (final BuildContext context, final int index) {
-                return DecoratedBox(
-                    decoration:
-                        BoxDecoration(color: conversations[index].color),
-                    child: SelectableText(
-                      '${conversations[index].text}',
-                      style: Theme.of(context).textTheme.headline4,
-                    ));
+                final value = conversations[index];
+                return getCell(value, context);
               },
               childCount: conversations.length,
             ),
@@ -43,5 +42,19 @@ class _ConversationListWidgetState extends State<ConversationListWidget> {
         ],
       ),
     ));
+  }
+
+  Widget getCell(ConversationViewModel value, BuildContext context) {
+    return Card(
+        color: value.color,
+        child: Padding(
+            padding: EdgeInsets.all(8.0),
+            child: SelectableText(
+              '${value.text}',
+              style: Theme.of(context).textTheme.bodyText1,
+              textAlign: (value.speaker == Speaker.Me)
+                  ? TextAlign.start
+                  : TextAlign.end,
+            )));
   }
 }

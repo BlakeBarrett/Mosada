@@ -34,7 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _execute(final String query) async {
     conversations.add(new ConversationViewModel(
-        text: "Me: $query", color: Colors.transparent));
+        text: "Me: $query", color: Colors.transparent, speaker: Speaker.Me));
     conversations.addAll(await API.continueConversation(query));
     setState(() {});
   }
@@ -72,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   decoration: BoxDecoration(color: HexColor('#f0f0f0')),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: ConversationListWidget(values: conversations),
+                    child: ChatWidget(values: conversations),
                   ))),
           getInputter(),
         ],
