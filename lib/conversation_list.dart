@@ -29,6 +29,7 @@ class _ChatWidgetState extends State<ChatWidget> {
         child: Padding(
       padding: const EdgeInsets.all(8.0),
       child: CustomScrollView(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         slivers: [
           SliverList(
             delegate: new SliverChildBuilderDelegate(
