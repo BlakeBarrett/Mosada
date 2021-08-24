@@ -9,22 +9,33 @@ import 'package:http/http.dart' as http;
 
 import 'secrets.dart' as secrets;
 
-List<String> _conversation = [];
+enum State { Ready, Asking, Coloring }
+State _state = State.Ready;
+State getState() => _state;
+void setState(final State value) {
+  _state = value;
+}
 
+bool isReady() => _state == State.Ready;
+
+final List<String> _conversation = [];
 void reset() {
-  _conversation = [];
+  _conversation.clear();
 }
 
 Future<List<ConversationViewModel>> continueConversation(
     final String question) async {
-  final answer = await askQuestion(question);
+  setState(State.Asking);
+  final answer = await _askQuestion(question);
   final textResponses = getTextForResponse(answer);
   final List<ConversationViewModel> responses = [];
+  setState(State.Coloring);
   for (final element in textResponses) {
-    final color = await getColor(element);
+    final color = await _getColor(element);
     responses.add(new ConversationViewModel(
         text: element, color: color, speaker: Speaker.Them));
   }
+  setState(State.Ready);
   return responses;
 }
 
@@ -42,17 +53,17 @@ Color getColorForResponse(final AIResponse response) {
   return HexColor(colorString);
 }
 
-Future<Color> getColor(final String query) async {
+Future<Color> _getColor(final String query) async {
   final prompt =
       "The CSS code for a color like \"$query\":\n\nbackground-color: #";
   final response = await _execute(prompt);
   return getColorForResponse(response);
 }
 
-Future<AIResponse> askQuestion(final String query) async {
+Future<AIResponse> _askQuestion(final String query) async {
   final introduction =
       "The following is a conversation with your new AI friend Mosada. Mosada is friendly, empathetic, creative, artistic, and inquisitive.\n\n";
-  final prompt = "Me: $query";
+  final prompt = "Me: ${jsonEncode(query)}";
   _conversation.add(prompt);
   final fullConversation =
       introduction + _conversation.join('\n') + "\nMosada: ";

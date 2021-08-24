@@ -24,7 +24,7 @@ class _ChatWidgetState extends State<ChatWidget> {
   _ChatWidgetState({required this.conversations});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     return Center(
         child: Padding(
       padding: const EdgeInsets.all(8.0),
@@ -34,7 +34,7 @@ class _ChatWidgetState extends State<ChatWidget> {
             delegate: new SliverChildBuilderDelegate(
               (final BuildContext context, final int index) {
                 final value = conversations[index];
-                return getCell(value, context);
+                return getConversationCard(value, context);
               },
               childCount: conversations.length,
             ),
@@ -44,17 +44,23 @@ class _ChatWidgetState extends State<ChatWidget> {
     ));
   }
 
-  Widget getCell(ConversationViewModel value, BuildContext context) {
-    return Card(
-        color: value.color,
-        child: Padding(
-            padding: EdgeInsets.all(8.0),
-            child: SelectableText(
-              '${value.text}',
-              style: Theme.of(context).textTheme.bodyText1,
-              textAlign: (value.speaker == Speaker.Me)
-                  ? TextAlign.start
-                  : TextAlign.end,
+  Widget getConversationCard(
+      final ConversationViewModel value, final BuildContext context) {
+    final bool isMe = value.speaker == Speaker.Me;
+    return Container(
+        child: Align(
+            alignment: isMe ? Alignment.centerLeft : Alignment.centerRight,
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              elevation: 4.0,
+              color: value.color,
+              child: ListTile(
+                leading: isMe ? Icon(Icons.person) : null,
+                title: Text(value.text),
+                trailing: !isMe ? Icon(Icons.android_outlined) : null,
+              ),
             )));
   }
 }

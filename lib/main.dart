@@ -11,30 +11,43 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final blue = Color(
+        0xFF00BFFF); // When asked, this was Mosada's favorite hue of blue.
     return MaterialApp(
       title: 'Mosada ಠ_ಠ',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: MaterialColor(0xff00bfff, {
+          50: blue.withAlpha(10),
+          100: blue.withAlpha(20),
+          200: blue.withAlpha(30),
+          300: blue.withAlpha(40),
+          400: blue.withAlpha(50),
+          500: blue.withAlpha(60),
+          600: blue.withAlpha(70),
+          700: blue.withAlpha(80),
+          800: blue.withAlpha(90),
+          900: blue.withAlpha(100),
+        }),
       ),
-      home: MyHomePage(),
+      home: MosadaChatWidget(),
     );
   }
 }
 
 @immutable
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key}) : super(key: key);
+class MosadaChatWidget extends StatefulWidget {
+  MosadaChatWidget({Key? key}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MosadaChatWidgetState createState() => _MosadaChatWidgetState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MosadaChatWidgetState extends State<MosadaChatWidget> {
   final List<ConversationViewModel> conversations = [];
 
   void _execute(final String query) async {
     conversations.add(new ConversationViewModel(
-        text: "Me: $query", color: Colors.transparent, speaker: Speaker.Me));
+        text: "Me: $query", color: Colors.white70, speaker: Speaker.Me));
     conversations.addAll(await API.continueConversation(query));
     setState(() {});
   }
@@ -45,6 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
       padding: const EdgeInsets.all(16.0),
       child: Center(
         child: TextField(
+          enabled: API.isReady(),
           autofocus: true,
           autocorrect: false,
           controller: controller,
@@ -62,8 +76,48 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        child: Flex(direction: Axis.vertical, children: [
+          DrawerHeader(
+              child: Expanded(
+                child: Center(
+                  child: Text('ಠ_ಠ'),
+                ),
+              ),
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+              )),
+          Expanded(
+            child: ListView(
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+              children: [],
+            ),
+          ),
+          AboutListTile(
+            applicationName: 'Mosada',
+            aboutBoxChildren: [Center(child: Text('ಠ_ಠ'))],
+          ),
+        ]),
+      ),
+      appBar: AppBar(
+          title: Text('Mosada ಠ_ಠ'),
+          leading: Builder(
+            builder: (context) => IconButton(
+                icon: Icon(Icons.menu),
+                onPressed: () => Scaffold.of(context).openDrawer()),
+          ),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  setState(() {
+                    conversations.clear();
+                    API.reset();
+                  });
+                },
+                icon: Icon(Icons.delete))
+          ]),
       body: Flex(
         direction: Axis.vertical,
         children: [
