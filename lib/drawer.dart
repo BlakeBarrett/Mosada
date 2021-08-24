@@ -32,10 +32,12 @@ class DrawerWidget extends StatelessWidget {
           child: ListView(
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             children: [
-              getRow(Icons.source, 'Source Code',
-                  'https://github.com/BlakeBarrett/BBAI'),
+              getRow(Icons.question_answer, 'FAQs',
+                  'https://github.com/BlakeBarrett/BBAI/blob/master/docs/FAQs.md'),
               getRow(Icons.history, 'History',
                   'https://github.com/BlakeBarrett/BBAI/blob/master/docs/conversations.md'),
+              getRow(Icons.source, 'Source Code',
+                  'https://github.com/BlakeBarrett/BBAI'),
             ],
           ),
         ),

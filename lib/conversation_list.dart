@@ -49,18 +49,21 @@ class _ChatWidgetState extends State<ChatWidget> {
     final bool isMe = value.speaker == Speaker.Me;
     return Container(
         child: Align(
-            alignment: isMe ? Alignment.centerLeft : Alignment.centerRight,
-            child: Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.0),
-              ),
-              elevation: 4.0,
-              color: value.color,
-              child: ListTile(
-                leading: isMe ? Icon(Icons.person) : null,
-                title: Text(value.text),
-                trailing: !isMe ? Icon(Icons.android_outlined) : null,
-              ),
-            )));
+      alignment: isMe ? Alignment.centerLeft : Alignment.centerRight,
+      child: ListTile(
+        leading: isMe ? Icon(Icons.person) : null,
+        title: Card(
+          margin: const EdgeInsets.all(8.0),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          elevation: 4.0,
+          color: value.color,
+          child: Padding(
+              padding: const EdgeInsets.all(16.0), child: Text(value.text)),
+        ),
+        trailing: !isMe ? Icon(Icons.android_outlined) : null,
+      ),
+    ));
   }
 }

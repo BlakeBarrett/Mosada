@@ -49,11 +49,14 @@ class _MosadaChatWidgetState extends State<MosadaChatWidget> {
   void _execute(final String query) async {
     conversations.add(new ConversationViewModel(
         text: "Me: $query", color: Colors.white70, speaker: Speaker.Me));
+    setState(
+        () {}); // calling setState() triggers the loading indicator to appear.
     conversations.addAll(await API.continueConversation(query));
-    setState(() {});
+    setState(() {}); // calling setState() triggers the loading indicator to
+    // disappear and the conversation to render.
   }
 
-  Widget getInputter() {
+  Widget _getInputter() {
     final TextEditingController controller = TextEditingController();
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -79,37 +82,38 @@ class _MosadaChatWidgetState extends State<MosadaChatWidget> {
   @override
   Widget build(final BuildContext context) {
     return Scaffold(
-      drawer: DrawerWidget(),
-      appBar: AppBar(
-          title: Text('Mosada ಠ_ಠ'),
-          leading: Builder(
-            builder: (context) => IconButton(
-                icon: Icon(Icons.menu),
-                onPressed: () => Scaffold.of(context).openDrawer()),
-          ),
-          actions: [
-            IconButton(
-                onPressed: () {
-                  setState(() {
-                    conversations.clear();
-                    API.reset();
-                  });
-                },
-                icon: Icon(Icons.delete))
-          ]),
-      body: Flex(
-        direction: Axis.vertical,
-        children: [
-          Expanded(
-              child: DecoratedBox(
-                  decoration: BoxDecoration(color: HexColor('#f0f0f0')),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ChatWidget(values: conversations),
-                  ))),
-          getInputter(),
-        ],
-      ),
-    );
+        drawer: DrawerWidget(),
+        appBar: AppBar(
+            title: Text('Mosada ಠ_ಠ'),
+            leading: Builder(
+              builder: (context) => IconButton(
+                  icon: Icon(Icons.menu),
+                  onPressed: () => Scaffold.of(context).openDrawer()),
+            ),
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    setState(() {
+                      conversations.clear();
+                      API.reset();
+                    });
+                  },
+                  icon: Icon(Icons.delete))
+            ]),
+        body: API.isReady()
+            ? Flex(
+                direction: Axis.vertical,
+                children: [
+                  Expanded(
+                      child: DecoratedBox(
+                          decoration: BoxDecoration(color: HexColor('#f0f0f0')),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ChatWidget(values: conversations),
+                          ))),
+                  _getInputter(),
+                ],
+              )
+            : Center(child: CircularProgressIndicator()));
   }
 }
