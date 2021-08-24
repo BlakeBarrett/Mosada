@@ -26,8 +26,6 @@ class _ChatWidgetState extends State<ChatWidget> {
   @override
   Widget build(final BuildContext context) {
     return Center(
-        child: Padding(
-      padding: const EdgeInsets.all(8.0),
       child: CustomScrollView(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         slivers: [
@@ -42,17 +40,31 @@ class _ChatWidgetState extends State<ChatWidget> {
           ),
         ],
       ),
-    ));
+    );
   }
 
   Widget getConversationCard(
       final ConversationViewModel value, final BuildContext context) {
     final bool isMe = value.speaker == Speaker.Me;
+    final Widget? thumbnailSelf = (isMe)
+        ? Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: [const Icon(Icons.person)],
+          )
+        : null;
+    final Widget? thumbnailAI = (!isMe)
+        ? Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: [const Icon(Icons.android_rounded)],
+          )
+        : null;
     return Container(
         child: Align(
       alignment: isMe ? Alignment.centerLeft : Alignment.centerRight,
       child: ListTile(
-        leading: isMe ? const Icon(Icons.person) : null,
+        leading: thumbnailSelf,
         title: Card(
           margin: const EdgeInsets.all(8.0),
           shape: RoundedRectangleBorder(
@@ -63,7 +75,7 @@ class _ChatWidgetState extends State<ChatWidget> {
           child: Padding(
               padding: const EdgeInsets.all(16.0), child: Text(value.text)),
         ),
-        trailing: !isMe ? const Icon(Icons.android_outlined) : null,
+        trailing: thumbnailAI,
       ),
     ));
   }

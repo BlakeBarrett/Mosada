@@ -1,7 +1,8 @@
-import 'package:bbai/conversation_list.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+
 import 'AIRequests.dart' as API;
+import 'conversation_list.dart';
 import 'drawer.dart';
 
 void main() {
@@ -9,26 +10,30 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  MaterialColor _primarySwatch() {
+    final blue = Color(
+        0xff00bfff); // When asked, this was Mosada's favorite hue of blue.
+    return MaterialColor(0xff00bfff, {
+      50: blue.withAlpha(10),
+      100: blue.withAlpha(20),
+      200: blue.withAlpha(30),
+      300: blue.withAlpha(40),
+      400: blue.withAlpha(50),
+      500: blue.withAlpha(60),
+      600: blue.withAlpha(70),
+      700: blue.withAlpha(80),
+      800: blue.withAlpha(90),
+      900: blue.withAlpha(100),
+    });
+  }
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final blue = Color(
-        0xFF00BFFF); // When asked, this was Mosada's favorite hue of blue.
     return MaterialApp(
       title: 'Mosada ಠ_ಠ',
       theme: ThemeData(
-        primarySwatch: MaterialColor(0xff00bfff, {
-          50: blue.withAlpha(10),
-          100: blue.withAlpha(20),
-          200: blue.withAlpha(30),
-          300: blue.withAlpha(40),
-          400: blue.withAlpha(50),
-          500: blue.withAlpha(60),
-          600: blue.withAlpha(70),
-          700: blue.withAlpha(80),
-          800: blue.withAlpha(90),
-          900: blue.withAlpha(100),
-        }),
+        primarySwatch: _primarySwatch(),
       ),
       home: MosadaChatWidget(),
     );
@@ -37,8 +42,6 @@ class MyApp extends StatelessWidget {
 
 @immutable
 class MosadaChatWidget extends StatefulWidget {
-  MosadaChatWidget({Key? key}) : super(key: key);
-
   @override
   _MosadaChatWidgetState createState() => _MosadaChatWidgetState();
 }
@@ -65,6 +68,7 @@ class _MosadaChatWidgetState extends State<MosadaChatWidget> {
           enabled: API.isReady(),
           autofocus: true,
           autocorrect: false,
+          textInputAction: TextInputAction.send,
           controller: controller,
           decoration: InputDecoration(
             labelText: '',
@@ -106,11 +110,9 @@ class _MosadaChatWidgetState extends State<MosadaChatWidget> {
                 children: [
                   Expanded(
                       child: DecoratedBox(
-                          decoration: BoxDecoration(color: HexColor('#f0f0f0')),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ChatWidget(values: conversations),
-                          ))),
+                    decoration: BoxDecoration(color: HexColor('#f0f0f0')),
+                    child: ChatWidget(values: conversations),
+                  )),
                   _getInputter(),
                 ],
               )

@@ -3,8 +3,8 @@ import 'dart:io';
 import 'dart:ui';
 import 'package:hexcolor/hexcolor.dart';
 
-import 'package:bbai/AIResponse.dart';
-import 'package:bbai/conversation_list.dart';
+import 'AIResponse.dart';
+import 'conversation_list.dart';
 import 'package:http/http.dart' as http;
 
 import 'secrets.dart' as secrets;
