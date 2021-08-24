@@ -2,6 +2,7 @@ import 'package:bbai/conversation_list.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'AIRequests.dart' as API;
+import 'drawer.dart';
 
 void main() {
   runApp(MyApp());
@@ -78,29 +79,7 @@ class _MosadaChatWidgetState extends State<MosadaChatWidget> {
   @override
   Widget build(final BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
-        child: Flex(direction: Axis.vertical, children: [
-          DrawerHeader(
-              child: Expanded(
-                child: Center(
-                  child: Text('ಠ_ಠ'),
-                ),
-              ),
-              decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
-              )),
-          Expanded(
-            child: ListView(
-              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-              children: [],
-            ),
-          ),
-          AboutListTile(
-            applicationName: 'Mosada',
-            aboutBoxChildren: [Center(child: Text('ಠ_ಠ'))],
-          ),
-        ]),
-      ),
+      drawer: DrawerWidget(),
       appBar: AppBar(
           title: Text('Mosada ಠ_ಠ'),
           leading: Builder(

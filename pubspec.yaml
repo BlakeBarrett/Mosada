@@ -31,6 +31,7 @@ dependencies:
   http: ^0.13.3
   test: ^1.16.8
   hexcolor: ^2.0.5
+  url_launcher: ^6.0.9
 
 dev_dependencies:
   flutter_test:
