@@ -1,4 +1,4 @@
-name: bbai
+name: mosada
 description: Chat with GPT3 AI. All their responses are colored by their own sentiment analyzer.
 
 # The following line prevents the package from being accidentally published to

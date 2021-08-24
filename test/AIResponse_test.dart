@@ -1,9 +1,10 @@
 import 'dart:convert';
 
-import 'package:bbai/AIRequests.dart';
-import 'package:test/test.dart';
-import 'package:bbai/AIResponse.dart';
 import 'package:flutter/material.dart';
+import 'package:test/test.dart';
+
+import 'package:/mosada/AIRequests.dart';
+import 'package:/mosada/AIResponse.dart';
 
 void main() {
   final jsonResponses = [
