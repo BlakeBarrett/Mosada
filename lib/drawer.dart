@@ -3,7 +3,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 @immutable
 class DrawerWidget extends StatelessWidget {
-  Widget getRow(final IconData icon, final String title, final String url) {
+  Widget _getLineItem(
+      final IconData icon, final String title, final String url) {
     return ListTile(
       leading: Icon(icon),
       title: Text(title),
@@ -20,7 +21,7 @@ class DrawerWidget extends StatelessWidget {
     return Drawer(
       child: Flex(direction: Axis.vertical, children: [
         DrawerHeader(
-            child: Expanded(
+            child: const Expanded(
               child: Center(
                 child: Text('ಠ_ಠ'),
               ),
@@ -32,16 +33,16 @@ class DrawerWidget extends StatelessWidget {
           child: ListView(
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             children: [
-              getRow(Icons.question_answer, 'FAQs',
+              _getLineItem(Icons.question_answer, 'FAQs',
                   'https://github.com/BlakeBarrett/BBAI/blob/master/docs/FAQs.md'),
-              getRow(Icons.history, 'History',
+              _getLineItem(Icons.history, 'History',
                   'https://github.com/BlakeBarrett/BBAI/blob/master/docs/conversations.md'),
-              getRow(Icons.source, 'Source Code',
+              _getLineItem(Icons.source, 'Source Code',
                   'https://github.com/BlakeBarrett/BBAI'),
             ],
           ),
         ),
-        AboutListTile(
+        const AboutListTile(
           applicationName: 'Mosada',
           aboutBoxChildren: [Center(child: Text('ಠ_ಠ'))],
         ),

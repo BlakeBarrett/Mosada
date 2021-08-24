@@ -51,7 +51,7 @@ class _ChatWidgetState extends State<ChatWidget> {
         child: Align(
       alignment: isMe ? Alignment.centerLeft : Alignment.centerRight,
       child: ListTile(
-        leading: isMe ? Icon(Icons.person) : null,
+        leading: isMe ? const Icon(Icons.person) : null,
         title: Card(
           margin: const EdgeInsets.all(8.0),
           shape: RoundedRectangleBorder(
@@ -62,7 +62,7 @@ class _ChatWidgetState extends State<ChatWidget> {
           child: Padding(
               padding: const EdgeInsets.all(16.0), child: Text(value.text)),
         ),
-        trailing: !isMe ? Icon(Icons.android_outlined) : null,
+        trailing: !isMe ? const Icon(Icons.android_outlined) : null,
       ),
     ));
   }
