@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 enum Speaker { Me, Them }
 
@@ -22,6 +23,9 @@ class ChatWidget extends StatefulWidget {
 class _ChatWidgetState extends State<ChatWidget> {
   List<ConversationViewModel> conversations = [];
   _ChatWidgetState({required this.conversations});
+
+  var _selfIcon = SvgPicture.asset('assets/account-outline.svg');
+  var _aiIcon = SvgPicture.asset('assets/robot-outline.svg');
 
   @override
   Widget build(final BuildContext context) {
@@ -50,14 +54,14 @@ class _ChatWidgetState extends State<ChatWidget> {
         ? Column(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
-            children: [const Icon(Icons.person)],
+            children: [_selfIcon],
           )
         : null;
     final Widget? thumbnailAI = (!isMe)
         ? Column(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
-            children: [const Icon(Icons.android_rounded)],
+            children: [_aiIcon],
           )
         : null;
     return Container(

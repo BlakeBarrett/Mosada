@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:flutter/material.dart';
 
 import 'AIResponse.dart';
 import 'conversation_list.dart';
@@ -41,50 +42,59 @@ Future<List<ConversationViewModel>> continueConversation(
 
 List<String> getTextForResponse(final AIResponse? response) {
   return 'Mosada: ${response?.choices.first.text}'
-      .split('[Mosada: ')
-      .join('')
       .split("\n")
       .where((value) => value.isNotEmpty)
       .toList();
 }
 
 Color getColorForResponse(final AIResponse response) {
-  final colorString = '#${response.choices.first.text}';
-  return HexColor(colorString);
+  var colorString = response.choices.first.text;
+  if (colorString.length == 3) {
+    final red = colorString.substring(0, 1);
+    final green = colorString.substring(1, 2);
+    final blue = colorString.substring(2, 3);
+    colorString = '$red$red$green$green$blue$blue';
+  }
+  try {
+    return (colorString == '') ? Colors.white : HexColor('#$colorString');
+  } catch (e) {
+    return Colors.white10;
+  }
 }
 
 Future<Color> _getColor(final String query) async {
   final prompt =
       "The CSS code for a color like \"$query\":\n\nbackground-color: #";
-  final response = await _execute(prompt);
+  final response = await _execute(prompt, 0.0);
   return getColorForResponse(response);
 }
 
 Future<AIResponse> _askQuestion(final String query) async {
   final introduction =
       "The following is a conversation with your new AI friend Mosada. Mosada is friendly, empathetic, creative, artistic, and inquisitive.\n\n";
-  final prompt = "Me: ${jsonEncode(query)}";
+  final prompt = "Me: $query";
   _conversation.add(prompt);
   final fullConversation =
-      introduction + _conversation.join('\n') + "\nMosada: ";
-  final response = await _execute(fullConversation);
+      introduction + _conversation.join('\n') + "\nMosada:";
+  final response = await _execute(fullConversation, 0.7);
   _conversation.add("Mosada: ${getTextForResponse(response)}");
   return response;
 }
 
-Future<AIResponse> _execute(final String query) async {
+Future<AIResponse> _execute(final String query, double temperature) async {
   final String url = 'https://api.openai.com/v1/engines/davinci/completions';
   final Uri uri = Uri.parse(url);
   Map postData = {
     "prompt": query,
-    "stop": [";"],
-    "temperature": 0,
+    "stop": ["\n", "Me: ", "\nMosada:"],
+    "temperature": temperature,
     "max_tokens": 69,
-    "top_p": 1.0,
+    "top_p": 0.1,
     "frequency_penalty": 0.0,
     "presence_penalty": 0.0,
   };
   final postBody = json.encode(postData);
+  print(postBody);
   final result = await http.post(
     uri,
     headers: {

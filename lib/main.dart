@@ -62,7 +62,7 @@ class _MosadaChatWidgetState extends State<MosadaChatWidget> {
   Widget _getInputter() {
     final TextEditingController controller = TextEditingController();
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 16.0),
       child: Center(
         child: TextField(
           enabled: API.isReady(),
