@@ -48,7 +48,7 @@ List<String> getTextForResponse(final AIResponse? response) {
 }
 
 Color getColorForResponse(final AIResponse response) {
-  var colorString = response.choices.first.text;
+  var colorString = response.choices.first.text.split(';').first;
   if (colorString.length == 3) {
     final red = colorString.substring(0, 1);
     final green = colorString.substring(1, 2);
@@ -71,7 +71,7 @@ Future<Color> _getColor(final String query) async {
 
 Future<AIResponse> _askQuestion(final String query) async {
   final introduction =
-      "The following is a conversation with your new AI friend Mosada. Mosada is friendly, empathetic, creative, artistic, and inquisitive.\n\n";
+      "The following is a conversation with your new AI friend Mosada. Mosada is friendly, empathetic, creative, artistic, and inquisitive.\n\nMe: Greetings friend!\nMosada: Hello, it is good to hear from you!\n";
   final prompt = "Me: $query";
   _conversation.add(prompt);
   final fullConversation =
