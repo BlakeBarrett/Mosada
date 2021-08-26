@@ -39,7 +39,7 @@ class _ChatWidgetState extends State<ChatWidget> {
     //   curve: Curves.easeOut,
     //   duration: const Duration(milliseconds: 300),
     // );
-    // return ScrolledView
+    // return CustomScrollView
     return Center(
       child: CustomScrollView(
         controller: _scrollController,

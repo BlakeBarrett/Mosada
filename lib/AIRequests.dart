@@ -41,7 +41,7 @@ Future<List<ConversationViewModel>> continueConversation(
 }
 
 List<String> getTextForResponse(final AIResponse? response) {
-  return 'Mosada: ${response?.choices.first.text}'
+  return '${response?.choices.first.text}'
       .split("\n")
       .where((value) => value.isNotEmpty)
       .toList();
@@ -71,13 +71,11 @@ Future<Color> _getColor(final String query) async {
 
 Future<AIResponse> _askQuestion(final String query) async {
   final introduction =
-      "The following is a conversation with your new AI friend Mosada. Mosada is friendly, empathetic, creative, artistic, and inquisitive.\n\nMe: Greetings friend!\nMosada: Hello, it is good to hear from you!\n";
-  final prompt = "Me: $query";
-  _conversation.add(prompt);
-  final fullConversation =
-      introduction + _conversation.join('\n') + "\nMosada:";
+      "The following is a conversation with your new AI friend Mosada. Mosada is friendly, empathetic, creative, artistic, and inquisitive.\n\nGreetings friend!\nHello, it is good to hear from you!\n";
+  _conversation.add(query);
+  final fullConversation = introduction + _conversation.join('\n') + "\n";
   final response = await _execute(fullConversation, 0.7);
-  _conversation.add("Mosada: ${getTextForResponse(response)}");
+  _conversation.addAll(getTextForResponse(response));
   return response;
 }
 
@@ -86,7 +84,7 @@ Future<AIResponse> _execute(final String query, double temperature) async {
   final Uri uri = Uri.parse(url);
   Map postData = {
     "prompt": query,
-    "stop": ["\n", "Me: ", "\nMosada:"],
+    "stop": ["\n"],
     "temperature": temperature,
     "max_tokens": 69,
     "top_p": 0.1,
