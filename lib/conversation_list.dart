@@ -24,13 +24,25 @@ class _ChatWidgetState extends State<ChatWidget> {
   List<ConversationViewModel> conversations = [];
   _ChatWidgetState({required this.conversations});
 
+  final _scrollController = new ScrollController(keepScrollOffset: true);
+
   var _selfIcon = SvgPicture.asset('assets/account-outline.svg');
   var _aiIcon = SvgPicture.asset('assets/robot-outline.svg');
 
   @override
   Widget build(final BuildContext context) {
+    // Dismiss keyboard
+    FocusScope.of(context).requestFocus(new FocusNode());
+    // Scroll to "bottom" of chat
+    // _scrollController.animateTo(
+    //   conversations.length * 100.0,
+    //   curve: Curves.easeOut,
+    //   duration: const Duration(milliseconds: 300),
+    // );
+    // return ScrolledView
     return Center(
       child: CustomScrollView(
+        controller: _scrollController,
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         slivers: [
           SliverList(
