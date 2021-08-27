@@ -45,6 +45,9 @@ class _ChatWidgetState extends State<ChatWidget> {
         controller: _scrollController,
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         slivers: [
+          // SliverFillRemaining(
+          //   fillOverscroll: false,
+          // ),
           SliverList(
             delegate: new SliverChildListDelegate(
               conversations
@@ -74,9 +77,9 @@ class _ChatWidgetState extends State<ChatWidget> {
           )
         : null;
     return ListTile(
-      leading: thumbnailSelf,
+      leading: thumbnailAI,
       title: Wrap(
-        alignment: isMe ? WrapAlignment.start : WrapAlignment.end,
+        alignment: isMe ? WrapAlignment.end : WrapAlignment.start,
         children: [
           Card(
             margin: const EdgeInsets.all(8.0),
@@ -94,7 +97,7 @@ class _ChatWidgetState extends State<ChatWidget> {
           ),
         ],
       ),
-      trailing: thumbnailAI,
+      trailing: thumbnailSelf,
     );
   }
 }
