@@ -46,12 +46,10 @@ class _ChatWidgetState extends State<ChatWidget> {
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         slivers: [
           SliverList(
-            delegate: new SliverChildBuilderDelegate(
-              (final BuildContext context, final int index) {
-                final value = conversations[index];
-                return getConversationCard(value, context);
-              },
-              childCount: conversations.length,
+            delegate: new SliverChildListDelegate(
+              conversations
+                  .map((final value) => getConversationCard(value))
+                  .toList(),
             ),
           ),
         ],
@@ -59,8 +57,7 @@ class _ChatWidgetState extends State<ChatWidget> {
     );
   }
 
-  Widget getConversationCard(
-      final ConversationViewModel value, final BuildContext context) {
+  Widget getConversationCard(final ConversationViewModel value) {
     final bool isMe = value.speaker == Speaker.Me;
     final Widget? thumbnailSelf = (isMe)
         ? Column(
@@ -89,7 +86,11 @@ class _ChatWidgetState extends State<ChatWidget> {
           elevation: 4.0,
           color: value.color,
           child: Padding(
-              padding: const EdgeInsets.all(16.0), child: Text(value.text)),
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                value.text,
+                softWrap: true,
+              )),
         ),
         trailing: thumbnailAI,
       ),
