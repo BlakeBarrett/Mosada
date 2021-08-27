@@ -73,27 +73,28 @@ class _ChatWidgetState extends State<ChatWidget> {
             children: [_aiIcon],
           )
         : null;
-    return Container(
-        child: Align(
-      alignment: isMe ? Alignment.centerLeft : Alignment.centerRight,
-      child: ListTile(
-        leading: thumbnailSelf,
-        title: Card(
-          margin: const EdgeInsets.all(8.0),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15.0),
+    return ListTile(
+      leading: thumbnailSelf,
+      title: Wrap(
+        alignment: isMe ? WrapAlignment.start : WrapAlignment.end,
+        children: [
+          Card(
+            margin: const EdgeInsets.all(8.0),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0),
+            ),
+            elevation: 4.0,
+            color: value.color,
+            child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  value.text,
+                  softWrap: true,
+                )),
           ),
-          elevation: 4.0,
-          color: value.color,
-          child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                value.text,
-                softWrap: true,
-              )),
-        ),
-        trailing: thumbnailAI,
+        ],
       ),
-    ));
+      trailing: thumbnailAI,
+    );
   }
 }
