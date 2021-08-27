@@ -24,6 +24,10 @@ void reset() {
   _conversation.clear();
 }
 
+final String _preamble =
+    "The following is a conversation with your new AI friend Mosada. Mosada is friendly, empathetic, creative, artistic, and inquisitive.\n\nGreetings friend!\nHello, it is good to hear from you!\n";
+String getPreamble() => _preamble;
+
 Future<List<ConversationViewModel>> continueConversation(
     final String question) async {
   setState(State.Asking);
@@ -70,10 +74,8 @@ Future<Color> _getColor(final String query) async {
 }
 
 Future<AIResponse> _askQuestion(final String query) async {
-  final introduction =
-      "The following is a conversation with your new AI friend Mosada. Mosada is friendly, empathetic, creative, artistic, and inquisitive.\n\nGreetings friend!\nHello, it is good to hear from you!\n";
   _conversation.add(query);
-  final fullConversation = introduction + _conversation.join('\n') + "\n";
+  final fullConversation = _preamble + _conversation.join('\n') + "\n";
   final response = await _execute(fullConversation, 0.7);
   _conversation.addAll(getTextForResponse(response));
   return response;
