@@ -42,8 +42,13 @@ class _ChatWidgetState extends State<ChatWidget>
     animation = Tween<double>(begin: 0, end: 1).animate(controller)
       ..addListener(() {
         setState(() {
-          // The state that has changed here is the animation object’s value.
-          _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+          try {
+            final value = _scrollController.position.maxScrollExtent;
+            // The state that has changed here is the animation object’s value.
+            _scrollController.jumpTo(value);
+          } catch (e) {
+            print(e); // just ignore it
+          }
         });
       });
     controller.forward();

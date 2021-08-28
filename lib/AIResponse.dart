@@ -12,7 +12,7 @@ class AIResponse {
       required this.model,
       required this.choices});
 
-  factory AIResponse.fromJson(Map<String, dynamic> json) {
+  factory AIResponse.fromJson(final Map<String, dynamic> json) {
     return new AIResponse(
         id: json["id"],
         object: json["object"],
@@ -21,6 +21,11 @@ class AIResponse {
         choices: (json["choices"] as List)
             .map((value) => AIResponseChoice.fromJson(value))
             .toList());
+  }
+
+  factory AIResponse.fromError(final error) {
+    return new AIResponse(
+        id: "", object: error, created: 0, model: "", choices: []);
   }
 }
 
@@ -38,7 +43,7 @@ class AIResponseChoice {
       // ignore: non_constant_identifier_names
       required this.finish_reason});
 
-  factory AIResponseChoice.fromJson(Map<String, dynamic> json) =>
+  factory AIResponseChoice.fromJson(final Map<String, dynamic> json) =>
       new AIResponseChoice(
           text: json["text"],
           index: json["index"],

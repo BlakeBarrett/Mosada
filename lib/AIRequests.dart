@@ -1,16 +1,16 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
-import 'package:hexcolor/hexcolor.dart';
+
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
+import 'package:http/http.dart' as http;
 
 import 'AIResponse.dart';
 import 'conversation_list.dart';
-import 'package:http/http.dart' as http;
-
 import 'secrets.dart' as secrets;
 
-enum State { Ready, Asking, Coloring }
+enum State { Ready, Asking, Coloring, Error }
 State _state = State.Ready;
 State getState() => _state;
 void setState(final State value) {
@@ -105,5 +105,11 @@ Future<AIResponse> _execute(
     body: postBody,
   );
   print(result.body);
-  return AIResponse.fromJson(jsonDecode(result.body));
+  try {
+    return AIResponse.fromJson(jsonDecode(result.body));
+  } catch (e) {
+    _state = State.Error;
+    print(e);
+    return AIResponse.fromError(e);
+  }
 }

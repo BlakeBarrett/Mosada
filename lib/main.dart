@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -95,36 +97,49 @@ class _MosadaChatWidgetState extends State<MosadaChatWidget> {
   @override
   Widget build(final BuildContext context) {
     return Scaffold(
-        drawer: DrawerWidget(),
-        appBar: AppBar(
-            title: Text('Mosada ಠ_ಠ'),
-            leading: Builder(
-              builder: (context) => IconButton(
-                  icon: Icon(Icons.menu),
-                  onPressed: () => Scaffold.of(context).openDrawer()),
+      drawer: DrawerWidget(),
+      appBar: AppBar(
+          title: Text('Mosada ಠ_ಠ'),
+          leading: Builder(
+            builder: (context) => IconButton(
+                icon: Icon(Icons.menu),
+                onPressed: () => Scaffold.of(context).openDrawer()),
+          ),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  setState(() {
+                    conversations.clear();
+                    API.reset();
+                  });
+                },
+                icon: Icon(Icons.delete))
+          ]),
+      body: Stack(
+        children: [
+          Flex(
+            direction: Axis.vertical,
+            children: [
+              Expanded(
+                  child: DecoratedBox(
+                decoration: BoxDecoration(color: HexColor('#f0f0f0')),
+                child: ChatWidget(values: conversations),
+              )),
+              _getInputter(),
+            ],
+          ),
+          if (!API.isReady()) ...[
+            Expanded(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                child: Container(
+                  child: const Center(child: CircularProgressIndicator()),
+                ),
+              ),
             ),
-            actions: [
-              IconButton(
-                  onPressed: () {
-                    setState(() {
-                      conversations.clear();
-                      API.reset();
-                    });
-                  },
-                  icon: Icon(Icons.delete))
-            ]),
-        body: API.isReady()
-            ? Flex(
-                direction: Axis.vertical,
-                children: [
-                  Expanded(
-                      child: DecoratedBox(
-                    decoration: BoxDecoration(color: HexColor('#f0f0f0')),
-                    child: ChatWidget(values: conversations),
-                  )),
-                  _getInputter(),
-                ],
-              )
-            : Center(child: CircularProgressIndicator()));
+          ],
+        ],
+      ),
+    );
   }
 }
