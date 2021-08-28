@@ -52,9 +52,9 @@ class _MosadaChatWidgetState extends State<MosadaChatWidget> {
     list.addAll(API
         .getPreamble()
         .split('\n')
-        .where((element) => element.isEmpty == false)
-        .map((e) => new ConversationViewModel(
-            text: e, color: Colors.white70, speaker: Speaker.Them)));
+        .where((element) => element.isNotEmpty)
+        .map((element) => new ConversationViewModel(
+            text: element, color: Colors.white70, speaker: Speaker.Them)));
     return list;
   }();
 

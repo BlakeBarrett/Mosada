@@ -82,10 +82,10 @@ Future<AIResponse> _askQuestion(final String query) async {
 }
 
 Future<AIResponse> _execute(
-    final String query, double temperature, int budget) async {
+    final String query, final double temperature, final int budget) async {
   final String url = 'https://api.openai.com/v1/engines/davinci/completions';
   final Uri uri = Uri.parse(url);
-  Map postData = {
+  final Map postData = {
     "prompt": query,
     "stop": ["\n"],
     "temperature": temperature,
