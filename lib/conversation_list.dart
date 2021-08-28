@@ -1,3 +1,4 @@
+import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -20,7 +21,8 @@ class ChatWidget extends StatefulWidget {
       _ChatWidgetState(conversations: this.values);
 }
 
-class _ChatWidgetState extends State<ChatWidget> {
+class _ChatWidgetState extends State<ChatWidget>
+    with SingleTickerProviderStateMixin {
   List<ConversationViewModel> conversations = [];
   _ChatWidgetState({required this.conversations});
 
@@ -28,6 +30,30 @@ class _ChatWidgetState extends State<ChatWidget> {
 
   var _selfIcon = SvgPicture.asset('assets/account-outline.svg');
   var _aiIcon = SvgPicture.asset('assets/robot-outline.svg');
+
+  late Animation<double> animation;
+  late AnimationController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller =
+        AnimationController(duration: const Duration(seconds: 2), vsync: this);
+    animation = Tween<double>(begin: 0, end: 1).animate(controller)
+      ..addListener(() {
+        setState(() {
+          // The state that has changed here is the animation object’s value.
+          _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+        });
+      });
+    controller.forward();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(final BuildContext context) {
