@@ -69,26 +69,27 @@ Color getColorForResponse(final AIResponse response) {
 Future<Color> _getColor(final String query) async {
   final prompt =
       "The CSS code for a color like \"$query\":\n\nbackground-color: #";
-  final response = await _execute(prompt, 0.0);
+  final response = await _execute(prompt, 0.0, 2);
   return getColorForResponse(response);
 }
 
 Future<AIResponse> _askQuestion(final String query) async {
   _conversation.add(query);
   final fullConversation = _preamble + _conversation.join('\n') + "\n";
-  final response = await _execute(fullConversation, 0.7);
+  final response = await _execute(fullConversation, 0.7, 69);
   _conversation.addAll(getTextForResponse(response));
   return response;
 }
 
-Future<AIResponse> _execute(final String query, double temperature) async {
+Future<AIResponse> _execute(
+    final String query, double temperature, int budget) async {
   final String url = 'https://api.openai.com/v1/engines/davinci/completions';
   final Uri uri = Uri.parse(url);
   Map postData = {
     "prompt": query,
     "stop": ["\n"],
     "temperature": temperature,
-    "max_tokens": 69,
+    "max_tokens": budget,
     "top_p": 0.1,
     "frequency_penalty": 0.0,
     "presence_penalty": 0.0,
