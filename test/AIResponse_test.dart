@@ -1,10 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:mosada/AIRequests.dart' as API;
+import 'package:mosada/AIResponse.dart';
 import 'package:test/test.dart';
-
-import 'package:/mosada/AIRequests.dart';
-import 'package:/mosada/AIResponse.dart';
 
 void main() {
   final jsonResponses = [
@@ -26,17 +25,17 @@ void main() {
       expect(response.object, 'text_completion');
       expect(response.created, 1629327713);
       expect(response.model, 'davinci:2020-05-03');
-      expect(response.choices.length, 1);
+      expect(response.choices?.length, 1);
     });
 
     test('Response Choice can be parsed from JSON', () {
       final choices = new AIResponse.fromJson(jsonResponses.first).choices;
-      expect(choices.length, 1);
-      final first = choices[0];
-      expect(first.text, 'F0F0F0');
-      expect(first.index, 0);
-      expect(first.logprobs, null);
-      expect(first.finish_reason, 'stop');
+      expect(choices?.length, 1);
+      final first = choices?[0];
+      expect(first?.text, 'F0F0F0');
+      expect(first?.index, 0);
+      expect(first?.logprobs, null);
+      expect(first?.finish_reason, 'stop');
     });
 
     test('Multiple different responses are parsable', () {
@@ -45,7 +44,7 @@ void main() {
           final value = AIResponse.fromJson(element);
           expect(value, isNotNull);
         } catch (e) {
-          fail(e.toString());
+          fail('$e');
         }
       });
     });
@@ -53,7 +52,7 @@ void main() {
     test('Colors can be parsed from responses', () {
       jsonResponses.forEach((element) {
         final response = AIResponse.fromJson(element);
-        final value = getColorForResponse(response);
+        final value = API.getColorForResponse(response);
         expect(value, isNotNull);
         expect(value, isNot(Colors.transparent));
       });

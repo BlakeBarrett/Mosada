@@ -45,23 +45,24 @@ Future<List<ConversationViewModel>> continueConversation(
 }
 
 List<String> getTextForResponse(final AIResponse? response) {
-  return '${response?.choices.first.text}'
+  return '${response?.choices?.first.text}'
       .split("\n")
       .where((value) => value.isNotEmpty)
       .toList();
 }
 
 Color getColorForResponse(final AIResponse response) {
-  var colorString = response.choices.first.text.split(';').first;
-  if (colorString.length == 3) {
-    final red = colorString.substring(0, 1);
-    final green = colorString.substring(1, 2);
-    final blue = colorString.substring(2, 3);
+  var colorString = response.choices?.first.text.split(';').first;
+  if (colorString?.length == 3) {
+    final red = colorString?.substring(0, 1);
+    final green = colorString?.substring(1, 2);
+    final blue = colorString?.substring(2, 3);
     colorString = '$red$red$green$green$blue$blue';
   }
   try {
     return (colorString == '') ? Colors.white : HexColor('#$colorString');
-  } catch (e) {
+  } catch (error) {
+    print('$error');
     return Colors.white10;
   }
 }
@@ -69,7 +70,7 @@ Color getColorForResponse(final AIResponse response) {
 Future<Color> _getColor(final String query) async {
   final prompt =
       "The CSS code for a color like \"$query\":\n\nbackground-color: #";
-  final response = await _execute(prompt, 0.0, 2);
+  final response = await _execute(prompt, 0.0, 3);
   return getColorForResponse(response);
 }
 
@@ -107,9 +108,9 @@ Future<AIResponse> _execute(
   print(result.body);
   try {
     return AIResponse.fromJson(jsonDecode(result.body));
-  } catch (e) {
-    _state = State.Error;
-    print(e);
-    return AIResponse.fromError(e);
+  } catch (error) {
+    setState(State.Error);
+    print('$error');
+    return AIResponse.fromError(error);
   }
 }

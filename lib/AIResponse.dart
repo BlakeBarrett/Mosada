@@ -1,9 +1,9 @@
 class AIResponse {
-  final String id;
-  final String object;
-  final int created;
-  final String model;
-  final List<AIResponseChoice> choices;
+  final String? id;
+  final String? object;
+  final int? created;
+  final String? model;
+  final List<AIResponseChoice>? choices;
 
   AIResponse(
       {required this.id,
@@ -16,7 +16,7 @@ class AIResponse {
     return new AIResponse(
         id: json["id"],
         object: json["object"],
-        created: int.parse(json["created"].toString()),
+        created: int.parse('${json["created"]}'),
         model: json["model"],
         choices: (json["choices"] as List)
             .map((value) => AIResponseChoice.fromJson(value))
@@ -25,7 +25,7 @@ class AIResponse {
 
   factory AIResponse.fromError(final error) {
     return new AIResponse(
-        id: "", object: error, created: 0, model: "", choices: []);
+        id: "", object: '$error', created: 0, model: "", choices: []);
   }
 }
 

@@ -38,18 +38,18 @@ class _ChatWidgetState extends State<ChatWidget>
   void initState() {
     super.initState();
     controller =
-        AnimationController(duration: const Duration(seconds: 2), vsync: this);
+        AnimationController(duration: const Duration(seconds: 1), vsync: this);
     animation = Tween<double>(begin: 0, end: 1).animate(controller)
       ..addListener(() {
-        setState(() {
-          try {
-            final value = _scrollController.position.maxScrollExtent;
-            // The state that has changed here is the animation object’s value.
+        try {
+          final value = _scrollController.position.maxScrollExtent;
+          // The state that has changed here is the animation object’s value.
+          setState(() {
             _scrollController.jumpTo(value);
-          } catch (e) {
-            print(e); // just ignore it
-          }
-        });
+          });
+        } catch (error) {
+          print('$error'); // just ignore it
+        }
       });
     controller.forward();
   }
@@ -64,13 +64,6 @@ class _ChatWidgetState extends State<ChatWidget>
   Widget build(final BuildContext context) {
     // Dismiss keyboard
     FocusScope.of(context).requestFocus(new FocusNode());
-    // Scroll to "bottom" of chat
-    // _scrollController.animateTo(
-    //   conversations.length * 100.0,
-    //   curve: Curves.easeOut,
-    //   duration: const Duration(milliseconds: 300),
-    // );
-    // return CustomScrollView
     return Center(
       child: CustomScrollView(
         controller: _scrollController,

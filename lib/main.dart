@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -128,16 +126,6 @@ class _MosadaChatWidgetState extends State<MosadaChatWidget> {
               _getInputter(),
             ],
           ),
-          if (!API.isReady()) ...[
-            Expanded(
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
-                child: Container(
-                  child: const Center(child: CircularProgressIndicator()),
-                ),
-              ),
-            ),
-          ],
         ],
       ),
     );
