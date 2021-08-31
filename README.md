@@ -8,7 +8,7 @@ The initial idea is to replicate how a human viewer imagines and perceives color
 
 Those conversations can be found in [conversations.md](./docs/conversations.md).  
 Key takeaways: 
- * The name the AI chose for itself is Mosada
+ * The name the AI chose for itself is Mosada (based on [this book](https://gutenberg.org/files/33430/33430-h/33430-h.htm)).
  * Its preferred pronouns are "it" or "itself" ([link](https://user-images.githubusercontent.com/578572/130301425-99907148-78ee-4dc8-8d66-a67d5694c6fd.png))
  * ಠ_ಠ is its favorite emoticon (just ask)
  * It prefers MVVM architecture over MVC or anything other design patterns
