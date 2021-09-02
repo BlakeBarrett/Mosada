@@ -21,10 +21,8 @@ class DrawerWidget extends StatelessWidget {
     return Drawer(
       child: Flex(direction: Axis.vertical, children: [
         DrawerHeader(
-            child: const Expanded(
-              child: Center(
-                child: Text('ಠ_ಠ'),
-              ),
+            child: const Center(
+              child: Text('ಠ_ಠ'),
             ),
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColor,
@@ -33,6 +31,8 @@ class DrawerWidget extends StatelessWidget {
           child: ListView(
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             children: [
+              _getLineItem(Icons.info_rounded, 'About Mosada',
+                  'https://github.com/BlakeBarrett/BBAI/blob/master/README.md'),
               _getLineItem(Icons.question_answer, 'FAQs',
                   'https://github.com/BlakeBarrett/BBAI/blob/master/docs/FAQs.md'),
               _getLineItem(Icons.history, 'History',
