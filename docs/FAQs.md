@@ -60,9 +60,9 @@ Source code for the project can be found at: [github.com/BlakeBarrett/BBAI](http
 This is a submission for the [SAAI](https://saai.devpost.com) (Super Artistic Artificial Intelligence) hackathon.
 
 ## Is this free?
-No, the artist is paying for the OpenAI credits it out of his own pocket.   
+No, OpenAI's GPT-3 model is not free; each requests costs actual money which the artist is paying for out of his own pocket.   
 
-Donations can be sent to:
+To Support the project: donations can be sent to:
 
 |  |  |  
 | --- | --- |
