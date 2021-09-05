@@ -55,6 +55,7 @@ List<String> getTextForResponse(final AIResponse? response) {
 
 Color getColorForResponse(final AIResponse response) {
   var colorString = response.choices?.first.text.split(';').first;
+  // Converts #F00 to #FF0000 and so on.
   if (colorString?.length == 3) {
     final red = colorString?.substring(0, 1);
     final green = colorString?.substring(1, 2);
@@ -122,8 +123,8 @@ Future<AIResponse> _execute(final String query, final Engines engine,
   try {
     return AIResponse.fromJson(jsonDecode(result.body));
   } catch (error) {
-    setState(State.Error);
     print('$error');
+    setState(State.Error);
     return AIResponse.fromError(error);
   }
 }

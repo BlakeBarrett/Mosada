@@ -99,8 +99,8 @@ class _MosadaChatWidgetState extends State<MosadaChatWidget> {
       appBar: AppBar(
           title: Text('Mosada ಠ_ಠ'),
           leading: Builder(
-            builder: (context) => IconButton(
-                icon: Icon(Icons.menu),
+            builder: (final context) => IconButton(
+                icon: const Icon(Icons.menu),
                 onPressed: () => Scaffold.of(context).openDrawer()),
           ),
           actions: [
@@ -111,7 +111,7 @@ class _MosadaChatWidgetState extends State<MosadaChatWidget> {
                     API.reset();
                   });
                 },
-                icon: Icon(Icons.delete))
+                icon: const Icon(Icons.delete))
           ]),
       body: Stack(
         children: [
