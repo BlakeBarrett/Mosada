@@ -107,17 +107,17 @@ String _getFriendlyEngine(final Engines engine) {
 
 Future<AIResponse> _execute(final String query, final Engines engine,
     final double temperature, final int budget) async {
-  final String engineFriendlyName = _getFriendlyEngine(engine);
+  final String preferredEngine = _getFriendlyEngine(engine);
   final String url =
-      'https://api.openai.com/v1/engines/$engineFriendlyName/completions';
+      'https://api.openai.com/v1/engines/$preferredEngine/completions';
   final Uri uri = Uri.parse(url);
   final Map postData = {
     "prompt": query,
     "stop": ["\n"],
     "temperature": temperature,
     "max_tokens": budget,
-    "top_p": 0.1,
-    "frequency_penalty": 0.0,
+    "top_p": 0.9,
+    "frequency_penalty": 0.5,
     "presence_penalty": 0.0,
   };
   final postBody = json.encode(postData);

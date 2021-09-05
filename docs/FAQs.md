@@ -45,6 +45,11 @@ Colors range from `0x000` to `0xFFFFFF`, meaning there are a possible _16,777,21
 ## Why is the text sometimes fuzzy gray?
 Colors include an alpha channel, sometimes the "color" returned by the AI is "transparent", fuzzy gray is the drop shadow behind the text widget.
 
+## Why do I have to keep scrolling down to see the last message?
+The app is my first attempt at a Flutter app, I struggled with that for hours, but could not get it to work reliably.  
+I didn't feel like cancelling the project or changing the design for that one bug.  
+If you'd like to try fixing that, please log an issue in the GitHub repo.
+
 ## It got stuck in a repeat loop
 It happens, just refresh the page.
 
