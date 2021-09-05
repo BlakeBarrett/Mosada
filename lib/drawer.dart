@@ -31,7 +31,7 @@ class DrawerWidget extends StatelessWidget {
           child: ListView(
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             children: [
-              _getLineItem(Icons.info_rounded, 'About Mosada',
+              _getLineItem(Icons.info_rounded, 'README',
                   'https://github.com/BlakeBarrett/BBAI/blob/master/README.md'),
               _getLineItem(Icons.question_answer, 'FAQs',
                   'https://github.com/BlakeBarrett/BBAI/blob/master/docs/FAQs.md'),
