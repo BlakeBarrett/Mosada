@@ -45,12 +45,16 @@ Colors range from `0x000` to `0xFFFFFF`, meaning there are a possible _16,777,21
 ## Why is the text sometimes fuzzy gray?
 Colors include an alpha channel, sometimes the "color" returned by the AI is "transparent", fuzzy gray is the drop shadow behind the text widget.
 
+## It got stuck in a repeat loop
+It happens, just refresh the page.
+
 ## Does Mosada remember anything / everything?
 Probably not.  
 There are times when it has replied with answers I specifically gave it in other conversations, but it is not always the case.
 
-## It got stuck in a repeat loop
-It happens, just refresh the page.
+## Are you recording conversations?
+**No!**  To prove that, the code is all open-source; you are free to satisfy your own concerns.  
+The code you would be looking for would be in either: [main.dart](https://github.com/BlakeBarrett/BBAI/blob/master/lib/main.dart), [conversation_list.dart](https://github.com/BlakeBarrett/BBAI/blob/master/lib/conversation_list.dart) or [AIRequests.dart](https://github.com/BlakeBarrett/BBAI/blob/master/lib/AIRequests.dart).
 
 ## How is this made?
 The entire project is one open-source codebase written using the [Flutter](flutter.dev) framework.   

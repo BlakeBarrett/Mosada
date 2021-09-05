@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -9,6 +10,8 @@ import 'package:http/http.dart' as http;
 import 'AIResponse.dart';
 import 'conversation_list.dart';
 import 'secrets.dart' as secrets;
+
+enum Engines { instruct, davinci }
 
 enum State { Ready, Asking, Coloring, Error }
 State _state = State.Ready;
@@ -70,21 +73,43 @@ Color getColorForResponse(final AIResponse response) {
 Future<Color> _getColor(final String query) async {
   final prompt =
       "The CSS code for a color like \"$query\":\n\nbackground-color: #";
-  final response = await _execute(prompt, 0.0, 3);
+  const responseBudget = 2;
+  final budget = _getTokenCostFor(prompt) + responseBudget;
+  final response = await _execute(prompt, Engines.instruct, 0.0, budget);
   return getColorForResponse(response);
+}
+
+int _getTokenCostFor(final String query) {
+  // This is a super half-assed estimate.
+  // Based on: https://beta.openai.com/docs/introduction/tokens
+  return min((query.length / 4).ceil(), 2048);
 }
 
 Future<AIResponse> _askQuestion(final String query) async {
   _conversation.add(query);
   final fullConversation = _preamble + _conversation.join('\n') + "\n";
-  final response = await _execute(fullConversation, 0.7, 69);
+  const responseBudget = 15;
+  final budget = _getTokenCostFor(fullConversation) + responseBudget;
+  final response =
+      await _execute(fullConversation, Engines.davinci, 0.7, budget);
   _conversation.addAll(getTextForResponse(response));
   return response;
 }
 
-Future<AIResponse> _execute(
-    final String query, final double temperature, final int budget) async {
-  final String url = 'https://api.openai.com/v1/engines/davinci/completions';
+String _getFriendlyEngine(final Engines engine) {
+  switch (engine) {
+    case Engines.instruct:
+      return 'davinci-instruct-beta';
+    case Engines.davinci:
+      return 'davinci';
+  }
+}
+
+Future<AIResponse> _execute(final String query, final Engines engine,
+    final double temperature, final int budget) async {
+  final String engineFriendlyName = _getFriendlyEngine(engine);
+  final String url =
+      'https://api.openai.com/v1/engines/$engineFriendlyName/completions';
   final Uri uri = Uri.parse(url);
   final Map postData = {
     "prompt": query,
