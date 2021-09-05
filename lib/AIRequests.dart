@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -73,25 +72,14 @@ Color getColorForResponse(final AIResponse response) {
 Future<Color> _getColor(final String query) async {
   final prompt =
       "The CSS code for a color like \"$query\":\n\nbackground-color: #";
-  const responseBudget = 2;
-  final budget = _getTokenCostFor(prompt) + responseBudget;
-  final response = await _execute(prompt, Engines.instruct, 0.0, budget);
+  final response = await _execute(prompt, Engines.instruct, 0.0, 10);
   return getColorForResponse(response);
-}
-
-int _getTokenCostFor(final String query) {
-  // This is a super half-assed estimate.
-  // Based on: https://beta.openai.com/docs/introduction/tokens
-  return min((query.length / 4).ceil(), 2048);
 }
 
 Future<AIResponse> _askQuestion(final String query) async {
   _conversation.add(query);
   final fullConversation = _preamble + _conversation.join('\n') + "\n";
-  const responseBudget = 15;
-  final budget = _getTokenCostFor(fullConversation) + responseBudget;
-  final response =
-      await _execute(fullConversation, Engines.davinci, 0.7, budget);
+  final response = await _execute(fullConversation, Engines.davinci, 0.7, 40);
   _conversation.addAll(getTextForResponse(response));
   return response;
 }
