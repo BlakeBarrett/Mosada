@@ -47,7 +47,7 @@ class MosadaChatWidget extends StatefulWidget {
 }
 
 class _MosadaChatWidgetState extends State<MosadaChatWidget> {
-  static ConversationViewModel _conversationViewModelFor(element) =>
+  static ConversationViewModel _conversationViewModelFor(final element) =>
       new ConversationViewModel(
           text: element, color: Colors.white70, speaker: Speaker.Them);
 
@@ -56,7 +56,7 @@ class _MosadaChatWidgetState extends State<MosadaChatWidget> {
     list.addAll(API
         .getPreamble()
         .split('\n')
-        .where((element) => element.isNotEmpty)
+        .where((final element) => element.isNotEmpty)
         .map(_conversationViewModelFor));
     return list;
   }();

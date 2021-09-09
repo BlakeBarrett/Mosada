@@ -105,19 +105,22 @@ class _ChatWidgetState extends State<ChatWidget>
       title: Wrap(
         alignment: isMe ? WrapAlignment.end : WrapAlignment.start,
         children: [
-          Card(
-            margin: const EdgeInsets.all(8.0),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.0),
+          Tooltip(
+            message: isMe ? '' : '${value.color.toString()}',
+            child: Card(
+              margin: const EdgeInsets.all(8.0),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              elevation: 4.0,
+              color: value.color,
+              child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    value.text,
+                    softWrap: true,
+                  )),
             ),
-            elevation: 4.0,
-            color: value.color,
-            child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  value.text,
-                  softWrap: true,
-                )),
           ),
         ],
       ),
