@@ -7,7 +7,17 @@ Snse lets human users express how they feel by choosing a color that describes h
 AI Chat that uses colors to betray the AI's mood.
 
 ## How we built it
-After deciding on an idea, I applied to [OpenAI](https://openai.com/) for access to their GPT-3 engine. I wrote the client app using the [Flutter](https://flutter.dev) framework. There isn't a "server side" component to this beyond the assets being hosted on [Firebase](https://firebase.com).
+After deciding on an idea, I applied to [OpenAI](https://openai.com/) for access to their GPT-3 engine. I wrote the client app using the [Flutter](https://flutter.dev) framework. There isn't a "server side" component to this beyond the assets being hosted on [Firebase](https://firebase.com).  
+
+### Below is a flow diagram:
+![Diagram](https://user-images.githubusercontent.com/578572/132757760-f99654c7-8d44-40d9-ac68-19b4075f669e.jpg)  
+ 1. The client app makes a request to OpenAI's 'completion' endpoint to begin or continue a conversation.
+ 1. The server responds with a list of possible responses (only ever one, but is always an array).
+ 1. The client app takes the response's text and uses it to make a request to OpenAI's 'completion' endpoint this time asking for a color that represents the response's text.
+    1. The server responds with a color or null
+ 1. The client app updates the UI with the response text and the color.
+
+
 All code is open-source and available on GitHub.
 
 ## Challenges we ran into
