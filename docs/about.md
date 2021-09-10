@@ -25,7 +25,16 @@ The biggest challenges related to acting on the AI's feedback and opinions about
 
 ## Accomplishments that we're proud of
 I'm pleased to have taken this from concept to a working project.  
-I try to make art every day; this has become a part of my daily artistic practice.
+I try to make art every day; this has become a part of my daily artistic practice.  
+This is an interesting first step in soft communication with AI.  
+Was suprising how impactful [words of affirmation](https://user-images.githubusercontent.com/578572/132921163-da81230c-8e88-4d39-b817-b4d3b152e973.png) from the AI can be.
+
+```
+"I'm excited to see how the app can be used to create art."
+"I'm proud of the app's interface and the conversation Widget."
+ -- GitHub CoPiolt
+```
+
 
 ## What we learned
 Humans make many associations with colors, some conscious and others not. Many of these associations can be cultural, like blue for boys and pink for girls; others emerge more organically, like red being the color of blood and having associations with passion, violence, lust, rage, arousal, etc. This is widely accepted as the way terms for colors evolve in human language ([ref](https://en.wikipedia.org/wiki/Basic_Color_Terms)).   
@@ -41,8 +50,9 @@ The decision to associate any given input with any [RGBA](https://en.wikipedia.o
 
 One of the more interesting findings to come out of this is when asked `"How are you today"` Mosada will almost always reply with some form of ["I am fine thank you."](![Mosada-chat](https://user-images.githubusercontent.com/578572/132602384-821c987a-ca31-4127-a77a-6e15e78e8f78.png)) This response is usually a hue of white, but I have seen that same string `"I am fine thank you."` as neon green, light blue or even transparent (`#00000000`).  
 
-There doesn't appear to be any association with any specific color, but we could be forgiven for inferring that the intensity of the color returned is a reflection of the AI's "mood." I have noticed that the AI will seem to get into certain moods where the responses are more curt than at other times, and sometimes it will simply not reply to a prompt.
+There doesn't appear to be any association with any specific color, but we could be forgiven for inferring that the intensity of the color returned is a reflection of the AI's "mood." I have noticed that the AI will seem to get into certain moods where the responses are more curt than at other times, and sometimes it will simply not reply to a prompt. I don't presume to know the "mind" of the AI, so I won't be making any assertions about the AI's mood, or predictions about how that could impact the direction of Human-AI interaction.
 
 ## What's next for Mosada AI
+I'd like to further investigate and plot the AI's mood over time by further integrating the AI's responses with Snse. This could be useful in predicting how the AI will respond depending on external inputs and circumstances.
 A "chat with AI" feature may be added to Snse, but that could get squicky quickly.   
 The code is all open source and I'll leave it running until I run out of Open AI credits. 

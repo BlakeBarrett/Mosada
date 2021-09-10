@@ -106,7 +106,7 @@ class _ChatWidgetState extends State<ChatWidget>
         alignment: isMe ? WrapAlignment.end : WrapAlignment.start,
         children: [
           Tooltip(
-            message: isMe ? '' : '${value.color.toString()}',
+            message: '${value.color.toString()}',
             child: Card(
               margin: const EdgeInsets.all(8.0),
               shape: RoundedRectangleBorder(
