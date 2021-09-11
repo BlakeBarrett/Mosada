@@ -38,7 +38,7 @@ Future<List<ConversationViewModel>> continueConversation(
   final List<ConversationViewModel> responses = [];
   setState(State.Coloring);
   for (final element in textResponses) {
-    final color = await _getColor(element);
+    final color = await getColor(element);
     responses.add(new ConversationViewModel(
         text: element, color: color, speaker: Speaker.Them));
   }
@@ -70,7 +70,7 @@ Color getColorForResponse(final AIResponse response) {
   }
 }
 
-Future<Color> _getColor(final String query) async {
+Future<Color> getColor(final String query) async {
   final prompt =
       "The CSS code for a color like \"$query\":\n\nbackground-color: #";
   final response = await _execute(prompt, Engines.instruct, 0.0, 10);

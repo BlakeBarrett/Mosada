@@ -62,8 +62,9 @@ class _MosadaChatWidgetState extends State<MosadaChatWidget> {
   }();
 
   void _execute(final String query) async {
+    final color = await API.getColor(query);
     conversations.add(new ConversationViewModel(
-        text: query, color: Colors.white70, speaker: Speaker.Me));
+        text: query, color: color, speaker: Speaker.Me));
     setState(
         () {}); // calling setState() triggers the loading indicator to appear.
     conversations.addAll(await API.continueConversation(query));
