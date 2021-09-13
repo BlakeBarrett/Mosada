@@ -4,7 +4,9 @@ Mucha composed four posters each using a different main color: Pink for the dawn
 Snse lets human users express how they feel by choosing a color that describes how they feel, building up a palette of moods over time. Each human has different associations with each color, so everyone's palette will end up being different. After watching a few video interviews with GPT-3, I wondered what its palette would look like.
 
 ## What it does
-AI Chat that uses colors to betray the AI's mood.
+AI Chat that uses colors to express the AI's mood.  
+Feel free to give it a try at [Mosada.blakebarrett.com](http://mosada.blakebarrett.com).  
+![chat](https://user-images.githubusercontent.com/578572/133020871-2b4e1e2f-ec7a-4f52-9fab-fd91dff374ad.png)
 
 ## How we built it
 After deciding on an idea, I applied to [OpenAI](https://openai.com/) for access to their GPT-3 engine. I wrote the client app using the [Flutter](https://flutter.dev) framework. There isn't a "server side" component to this beyond the assets being hosted on [Firebase](https://firebase.com).  
