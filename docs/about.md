@@ -8,13 +8,14 @@ AI Chat that uses colors to betray the AI's mood.
 
 ## How we built it
 After deciding on an idea, I applied to [OpenAI](https://openai.com/) for access to their GPT-3 engine. I wrote the client app using the [Flutter](https://flutter.dev) framework. There isn't a "server side" component to this beyond the assets being hosted on [Firebase](https://firebase.com).  
+A video explaining the thinking behind the Mosada project can be found [here](https://www.youtube.com/watch?v=SIDJM0sFxok).  
 
 ### Below is a flow diagram:
-![Diagram](https://user-images.githubusercontent.com/578572/132757760-f99654c7-8d44-40d9-ac68-19b4075f669e.jpg)  
+![Diagram](https://user-images.githubusercontent.com/578572/133019452-7e13dcfc-678d-4b93-ad28-ca6513f2d8e1.jpg)  
  1. The client app makes a request to OpenAI's 'completion' endpoint to begin or continue a conversation.
  1. The server responds with a list of possible responses (only ever one, but is always an array).
  1. The client app takes the response's text and uses it to make a request to OpenAI's 'completion' endpoint, this time asking for a color that represents the response's text.
-    * The server responds with a color or null.
+ 1. The server responds with a color or null.
  1. The client app updates the UI with the response text and the color.
 
 
