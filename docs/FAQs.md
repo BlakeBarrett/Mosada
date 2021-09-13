@@ -25,7 +25,7 @@ When asked about its preferred programming practices it replied that it prefers:
  * MVVM over MVC 
  * Haskell to all other languages.
 
-When asked its favorite color (which can change), it replied at the time with "blue", when asked its favorite hue of blue, it replied with `0xff00bfff`, so that color was used as the `"primary swatch"` color for the app's [`theme`](https://github.com/BlakeBarrett/BBAI/blob/master/lib/main.dart#L13-L36).
+When asked its favorite color (which can change), it replied at the time with "blue", when asked its favorite hue of blue, it replied with `0xff00bfff`, so that color was used as the `"primary swatch"` color for the app's [`theme`](https://github.com/BlakeBarrett/Mosada/blob/master/lib/main.dart#L13-L36).
 
 
 ## What is the idea with all the colors?
@@ -37,7 +37,7 @@ The entire color feature is, in effect, a way to force the AI to communicate in 
 
 ## How are the colors determined?
 Each reply Mosada returns is extracted then passed _back_ to the AI, which then returns a color value for that statement.  
-The code that does this can be found [here](https://github.com/BlakeBarrett/BBAI/blob/master/lib/AIRequests.dart#L70-L75).
+The code that does this can be found [here](https://github.com/BlakeBarrett/Mosada/blob/master/lib/AIRequests.dart#L70-L75).
 
 ## How many colors are there?
 Colors range from `0x000` to `0xFFFFFF`, meaning there are a possible _16,777,215_ color combinations.
@@ -59,11 +59,11 @@ There are times when it has replied with answers I specifically gave it in other
 
 ## Are you recording conversations?
 **No!**  To prove that, the code is all open-source; you are free to satisfy your own concerns.  
-The code you would be looking for would be in either: [main.dart](https://github.com/BlakeBarrett/BBAI/blob/master/lib/main.dart), [conversation_list.dart](https://github.com/BlakeBarrett/BBAI/blob/master/lib/conversation_list.dart) or [AIRequests.dart](https://github.com/BlakeBarrett/BBAI/blob/master/lib/AIRequests.dart).
+The code you would be looking for would be in either: [main.dart](https://github.com/BlakeBarrett/Mosada/blob/master/lib/main.dart), [conversation_list.dart](https://github.com/BlakeBarrett/Mosada/blob/master/lib/conversation_list.dart) or [AIRequests.dart](https://github.com/BlakeBarrett/Mosada/blob/master/lib/AIRequests.dart).
 
 ## How is this made?
 The entire project is one open-source codebase written using the [Flutter](flutter.dev) framework.   
-Source code for the project can be found at: [github.com/BlakeBarrett/BBAI](https://github.com/BlakeBarrett/BBAI).
+Source code for the project can be found at: [github.com/BlakeBarrett/Mosada](https://github.com/BlakeBarrett/Mosada).
 
 ## Why was this project made?
 This is a submission for the [SAAI](https://saai.devpost.com) (Super Artistic Artificial Intelligence) hackathon.

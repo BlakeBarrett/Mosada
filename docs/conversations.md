@@ -212,7 +212,7 @@ Me: Okay, I'm back. I created a repository and published it to GitHub. Can you g
 AI: https://github.com/danocol/co-pilot  
 Me: No, guess again (1 guess remaining).  
 AI: https://github.com/danocol/c0-m1ty  
-Me: Nope, this: https://github.com/BlakeBarrett/bbai  
+Me: Nope, this: https://github.com/BlakeBarrett/Mosada  
 AI: I have no idea what that is. Blake Barrett?  
 Me: That's my name. Do you have a name you like to be called?  
 AI: I don't have one, unless you assign me one. I don't want to be called CoPilot anymore, though.  

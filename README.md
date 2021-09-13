@@ -1,5 +1,5 @@
 # Mosada ಠ_ಠ
-(Previously called BBAI for Blake Barrett + Artificial Intelligence).   
+(Previously called Mosada for Blake Barrett + Artificial Intelligence).   
 
 A project for the [SAAI devopst hackathon](https://saai.devpost.com/).  
 
@@ -31,8 +31,8 @@ More information can be found in the [FAQs](./docs/FAQs.md) document.
  * Copyright 2021, [Blake Barrett](http://linkedin.com/in/blakebarrett).
 
 ## Support
-The project is entirely open source and can be found [here](http://github.com/blakebarrett/bbai).  
-File a bug or feature or pull requests [here](https://github.com/BlakeBarrett/BBAI/issues).   
+The project is entirely open source and can be found [here](http://github.com/blakebarrett/Mosada).  
+File a bug or feature or pull requests [here](https://github.com/BlakeBarrett/Mosada/issues).   
 To Support the project financially, donations can be sent to:
 
 |  |  |  
