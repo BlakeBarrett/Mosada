@@ -2,6 +2,7 @@
 
 [Mosada.blakebarrett.com](Mosada.blakebarrett.com).  
 A project for the [SAAI devopst hackathon](https://saai.devpost.com/).  
+Video explaining the project: [YouTube](https://youtu.be/SIDJM0sFxok)
 
 ## Abstract
 In face to face human interaction communication takes more forms than the content of the words spoken; there is often nuance that is lost when that conversation transitions to a text-based medium, like chat.
