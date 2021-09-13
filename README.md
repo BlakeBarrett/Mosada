@@ -1,6 +1,6 @@
 # Mosada ಠ_ಠ
-(Previously called Mosada for Blake Barrett + Artificial Intelligence).   
 
+[Mosada.blakebarrett.com](Mosada.blakebarrett.com).  
 A project for the [SAAI devopst hackathon](https://saai.devpost.com/).  
 
 ## Abstract
